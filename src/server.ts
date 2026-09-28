@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import {textDbConnection} from "./config/database"
 import applicationRoutes from "./routes/applicationRoutes"
+import authRoutes from "./routes/authRoutes"
 
 dotenv.config();
 
@@ -11,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 const startServer = async () => {
     await textDbConnection();
 app.use(express.json());
-
+app.use('/api/auth', authRoutes)
 app.use('/api',applicationRoutes);
 
 app.listen(PORT, () => {

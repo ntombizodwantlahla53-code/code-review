@@ -10,7 +10,6 @@
 "noEmit": true
 
   },
-"include": [
-    "src"
-  ]
+"include": ["src/**/*"],
+"files": ["src/types/express.d.ts"]
 }

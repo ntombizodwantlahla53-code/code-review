@@ -29,3 +29,11 @@ FOREIGN KEY (user_id)
 REFERENCES users(id)
 ON DELETE CASCADE;
 
+DB_USER= postgres
+DB_HOST=localhost
+DB_DATABASE=code-review
+DB_PASSWORD=......
+DB_PORT=5432
+PORT=3000
+
+JWT_SECRET= this-key-is-very-secret
