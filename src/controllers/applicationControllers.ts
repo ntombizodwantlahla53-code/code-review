@@ -3,7 +3,9 @@ import * as applicationService from "./../service/applicationService"
 
 export const addApplication = async (req: Request, res:Response) => {
     try {
-        const newApplication = await applicationService.createApplication(req.body);
+        const newApplication = await applicationService.createApplication(
+            req.body,
+            req.user!.id);
         res.status(201).json(newApplication);
     } catch (error) {
         res.status(500).json({ message: "Error in creating application"});
