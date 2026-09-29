@@ -4,8 +4,8 @@ import { findUserByEmail } from "../service/userService";
 import { User } from "../types/user.types";
 
 interface JwtPayload {
-  userId: number;
-  email: string;
+  userId: number,
+  email: string
 }
 
 export const protect = async (
@@ -25,20 +25,19 @@ export const protect = async (
       const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload
       console.log(decoded, 'decoded token');
 
-      // const user: User | null = await findUserByEmail(decoded.email)
-      // req.user = user || undefined
+      const user: User | null = await findUserByEmail(decoded.email)
+      req.user = user || undefined
 
-      // if(!req.user){
-      //   return res
-      //   .status(401)
-      //   .json({message: "Not authorize, user not found"});
-      // }
-      return next()
+      if(!req.user){
+        return res
+        .status(401)
+        .json({message: "Not authorize, user not found"});
+      }
+      return next();
     } catch (error) {
       return res.status(401).json({ message: "Not authorized, token failed"});
     }
   } else {
-    res.status(401).json({message: "Not authorized ,no token"})
+    return res.status(401).json({message: "Not authorized ,no token"})
   }
-  return res.status(401).json({message: "Not authorized"});
 };
